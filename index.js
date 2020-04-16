@@ -3,7 +3,9 @@
 // 🏡 Task 1: Variables
 /* Create variables for principal, interest rate, and years. Assign them the values 200000, 0.05, and 30 respectively. Create another value called name and give it the value of your own name.
 */
-
+let principal = 200000;
+let interestRate = 0.05;
+let years = 30;
 
 
 
@@ -15,9 +17,8 @@ Create a variable called `monthlyInterestRate` and give it the value of interest
 
 Create another variable called `periods` and give it the value of years*12.
 */
-
-
-
+let monthlyInterestRate = interestRate / 12;
+let periods = years * 12;
 
 // 🏡 Task 2: Harder Math
 /* Create your calculator! Use the formula in the ReadMe to run calculations on your numbers. Save the final value into a variable called monthlyRate.
@@ -28,10 +29,11 @@ Hint #2: you'll need to use the `math` object for parts of this calculation!
 
 When your math is correct, monthlyRate will equal 1073.64
 */
-
-
-
-
+let numerator = principal*(monthlyInterestRate*(Math.pow((1+monthlyInterestRate),periods)));
+let denominator = ((Math.pow((1+monthlyInterestRate), periods))-1);
+let monthlyRate = numerator/denominator;
+console.log(monthlyRate);
+// M = P [ I ( 1 + I )^N ] / [ ( 1 + I )^N – 1 ]
 // 🏡 Task 3: Function
 /* Create a function called `mortgageCalculator` that combines all of the steps from task 1 and 2 and returns a sentence "{Name}, your monthly rate is ${monthlyRate}"
 
@@ -39,15 +41,38 @@ If your name is `Oscar` mortgageCalculator() should return "Oscar, your monthly 
 */
 
 
-
-
-
+function mortgageCalculator() {
+    let principal = 200000;
+    let interestRate = 0.05;
+    let years = 30;
+    let name = "Aku";
+    let monthlyInterestRate = interestRate / 12;
+    let periods = years * 12;
+    let numerator = principal*(monthlyInterestRate*(Math.pow((1+monthlyInterestRate),periods)));
+    let denominator = ((Math.pow((1+monthlyInterestRate), periods))-1);
+    let monthlyRate = numerator/denominator;
+    console.log(name,"your monthly rate is",monthlyRate);
+}
+// mortgageCalculator()
 // 🏡 Task 4: Arguments and Parameters
 /* Substitute the variables in your functions for parameters such that you can substitute `P`, `I`, and `N` when you call the function.
 
 For example,
 mortgageCalculator(2000000, 0.05, 30); <-- should return 1,073.64
 */
+function mortgageCalculator(p, i, y) {
+    let principal = p;
+    let interestRate = i;
+    let years = y;
+    let name = "Aku";
+    let monthlyInterestRate = interestRate / 12;
+    let periods = years * 12;
+    let numerator = principal*(monthlyInterestRate*(Math.pow((1+monthlyInterestRate),periods)));
+    let denominator = ((Math.pow((1+monthlyInterestRate), periods))-1);
+    let monthlyRate = numerator/denominator;
+    console.log(name,"with an interest rate of ", interestRate, "your monthly rate is", monthlyRate);
+}
+mortgageCalculator(200000, 0.05, 30, "Aku")
 
 
 
@@ -60,6 +85,30 @@ Then, add control flow within your function such that IF creditScore is above 74
 */
 
 
+function mortgageCalculator2(p, i, y, name, score) {
+    let principal = p;
+    let interestRate = i;
+    let Name = name;
+    let years = y;
+    let creditScore = score;
+    if (creditScore>740) {
+        interestRate=interestRate-0.005;
+    }
+    else if (creditScore<660) {
+        interestRate=interestRate+0.005;
+    }
+    
+    let monthlyInterestRate = interestRate / 12;
+    let periods = years * 12;
+    let numerator = principal*(monthlyInterestRate*(Math.pow((1+monthlyInterestRate),periods)));
+    let denominator = ((Math.pow((1+monthlyInterestRate), periods))-1);
+    let monthlyRate = numerator/denominator;
+    console.log( Name, "your monthly rate is", monthlyRate);
+}
+
+mortgageCalculator2(200000, 0.05, 30, "Aku", 660);
+mortgageCalculator2(200000, 0.05, 30, "Aku", 600);
+mortgageCalculator2(200000, 0.05, 30, "Aku", 750);
 
 
 // 🏡 Task 6: Loops
@@ -78,7 +127,16 @@ For example, variableInterestRate(200000, 0.04, 30) should console.log:
 "{Name}, with an interest rate of 0.06, your monthly rate is $1199"
 */
 
+function variableInterestRate(p, i, y) {
+    let principal = p;
+    let interestRate = i;
+    let years = y;
+    for (var i = (interestRate-0.02); i <= (interestRate+0.02); i += 0.005) {
+        mortgageCalculator(principal,i,years);
+    }
+}
 
+variableInterestRate(200000,0.04,30);
 
 
 // 🌟🌟🌟 STRETCH 🌟🌟🌟//
